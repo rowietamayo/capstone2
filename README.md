@@ -1,11 +1,17 @@
-# Application Name: Demo-App
 
-### Team Members:
+# Capstone 2 Demo App Overview:
 
-1. Rowimay Tamayo
-2. Jeswel Gomez
 
-### User Credentials:
+
+
+## Application Name: Demo App
+## Team Members
+
+- Rowimay Tamayo
+- Jeswel Gomez
+
+
+## User Credentials
 
 #### Admin user:
 
@@ -16,9 +22,7 @@
 
 - email: bon@mail.com
 - password: bon24680
-
-### Features:
-
+## Features:
 #### Features by Student-1
 
 - User Resources
@@ -29,7 +33,6 @@
 - Update Password
 
 ##### Product Resources:
-
 
 - Create Product(Admin only)
 - Retrieve all products
