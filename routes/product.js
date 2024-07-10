@@ -11,14 +11,14 @@ router.post("/", verify, verifyAdmin, productController.addProduct)
 router.get("/all", verify, verifyAdmin, productController.getAllProducts)
 
 // retrieving all active products
-router.get("/", productController.getAllActive)
+router.get("/active", verify, verifyAdmin, productController.getAllActive)
 
 // retrieve single product
-router.get("/:id", productController.getProduct)
+router.get("/:productId", productController.getProduct)
 
 //updating a product info (Admin)
 router.patch(
-  "/:productId",
+  "/:productId/update",
   verify,
   verifyAdmin,
   productController.updateProduct

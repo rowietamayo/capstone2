@@ -21,9 +21,7 @@ module.exports.addProduct = async (req, res) => {
     } else {
       await newProduct.save()
       return res.send({
-        success: true,
-        message: "Product added successfully",
-        result: newProduct,
+        product: newProduct,
       })
     }
   } catch (err) {
@@ -32,30 +30,24 @@ module.exports.addProduct = async (req, res) => {
 }
 
 //Retrieve all Products
-module.exports.getAllProducts = async (req, res) => {
-  if (!req.user.isAdmin) {
-    return res
-      .status(401)
-      .send({ message: "Only admin can retrieve all products" })
-  }
-
-  try {
-    const products = await Product.find({})
-    if (products.length > 0) {
-      return res.status(200).send(products)
-    } else {
-      return res.status(404).send({ message: "No product found" })
-    }
-  } catch (error) {
-    errorHandler(error, req, res)
-  }
+module.exports.getAllProducts = (req, res) => {
+  return Product.find({})
+    .then((result) => {
+      if (result.length > 0) {
+        return res.status(200).send(result)
+      } else {
+        return res.status(404).send({ message: "No products found" })
+      }
+    })
+    .catch((error) => errorHandler(error, req, res))
 }
+
 //Retrieve all active products
 module.exports.getAllActive = (req, res) => {
   Product.find({ isActive: true })
     .then((result) => {
       if (result.length > 0) {
-        return res.status(200).send(result)
+        return res.status(200).send({ products: result })
       } else {
         return res.status(404).send(false)
       }
@@ -82,9 +74,12 @@ module.exports.updateProduct = (req, res) => {
   return Product.findByIdAndUpdate(req.params.productId, updatedProduct)
     .then((product) => {
       if (product) {
-        res.send(true)
+        res.send({
+          message: "product updated successfully",
+          updatedProduct: product,
+        })
       } else {
-        res.send(false)
+        res.status(404).send({ error: "Product not found" })
       }
     })
     .catch((error) => errorHandler(error, req, res))
@@ -107,8 +102,8 @@ module.exports.archiveProduct = (req, res) => {
         }
 
         return res.status(200).send({
-          success: true,
           message: "Product archived successfully",
+          archiveProduct: product,
         })
       } else {
         return res.status(404).send({ message: "Product not found" })
@@ -134,8 +129,8 @@ module.exports.activateProduct = (req, res) => {
         }
 
         return res.status(200).send({
-          success: true,
           message: "Product activated successfully",
+          activateProduct: product,
         })
       } else {
         return res.status(404).send({ message: "Product not found" })
