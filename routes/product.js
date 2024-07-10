@@ -11,7 +11,7 @@ router.post("/", verify, verifyAdmin, productController.addProduct)
 router.get("/all", verify, verifyAdmin, productController.getAllProducts)
 
 // retrieving all active products
-router.get("/active", verify, verifyAdmin, productController.getAllActive)
+router.get("/active", productController.getAllActive)
 
 // retrieve single product
 router.get("/:productId", productController.getProduct)
