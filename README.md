@@ -13,12 +13,12 @@
 
 ## User Credentials
 
-#### Admin user:
+#### - Admin user:
 
 - email: admin@mail.com
 - password: admin123
 
-#### Dummy Customer
+#### - Dummy Customer
 
 - email: bon@mail.com
 - password: bon24680
