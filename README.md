@@ -30,7 +30,14 @@
 
 ##### Product Resources:
 
+
 - Create Product(Admin only)
+- Retrieve all products
+- Retrieve all active products
+- Retrieve single product
+- Update Product information (Admin only)
+- Archive Product(Admin Only)
+- Activate Product(Admin only)
 
 #### Features by Student-2
 
