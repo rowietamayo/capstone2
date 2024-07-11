@@ -90,7 +90,12 @@ module.exports.updateCartQuantity = async (req, res) => {
     cart.totalPrice = cart.totalPrice - oldSubtotal + newSubtotal
 
     await cart.save()
-    res.status(200).json(cart)
+    res
+      .status(200)
+      .json({
+        message: "Item quantity updated successfully",
+        updatedCart: cart,
+      })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
@@ -107,7 +112,7 @@ module.exports.getCart = async (req, res) => {
       return res.status(404).json({ message: "Cart not found" })
     }
 
-    res.status(200).json(cart)
+    res.status(200).json({ cart: cart })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
