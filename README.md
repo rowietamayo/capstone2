@@ -20,8 +20,8 @@
 
 - #### Dummy Customer
 
-  - email: bon@mail.com
-  - password: bon24680
+  - email: zen@mail.com
+  - password: zen12345
   
 ## Features:
 #### Features by Student-1
