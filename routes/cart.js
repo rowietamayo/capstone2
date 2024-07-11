@@ -16,4 +16,8 @@ router.patch(
 )
 router.get("/get-cart/:userId", verify, verifyNotAdmin, cartController.getCart)
 
+router.patch("/:productId/remove-from-cart", verify, verifyNotAdmin, cartController.removeFromCart);
+
+router.put("/clear-cart", verify, verifyNotAdmin, cartController.clearCart);
+
 module.exports = router
