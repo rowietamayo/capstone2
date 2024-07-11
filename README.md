@@ -26,7 +26,7 @@
 ## Features:
 #### Features by Student-1
 
-- User Resources
+##### User Resources:
 - User Registration
 - User authentication
 - Set user as admin (Admin only)
@@ -34,7 +34,6 @@
 - Update Password
 
 ##### Product Resources:
-
 - Create Product(Admin only)
 - Retrieve all products
 - Retrieve all active products
@@ -47,7 +46,7 @@
 
 #### Features by Student-2
 
-- Cart Resources
+##### Cart Resources:
 - Get User's Cart
 - Add to Cart
 - Subtotal for each item
