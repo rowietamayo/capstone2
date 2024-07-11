@@ -138,3 +138,44 @@ module.exports.activateProduct = (req, res) => {
     })
     .catch((error) => errorHandler(error, req, res))
 }
+
+
+//search for products by their names
+module.exports.searchProductByName = async (req, res) => {
+  const name = req.body.name
+
+  try {
+    const result = await Product.find({ name: { $regex: name, $options: "i" } })
+    if (result.length > 0) {
+      return res.status(200).send(result)
+    } else {
+      return res.status(404).send({ message: "No products found" })
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: "An error occurred", error: error.message })
+  }
+}
+//search for products by price range
+module.exports.searchProductByPrice = async (req, res) => {
+  const { minPrice, maxPrice } = req.body
+
+  try {
+    const products = await Product.find({
+      price: { $gte: minPrice, $lte: maxPrice },
+    }).select("price".reqbody)
+
+    if (products.length > 0) {
+      return res.status(200).send(products)
+    } else {
+      return res
+        .status(404)
+        .send({ message: "No products found in the given price range" })
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: "An error occurred", error: error.message })
+  }
+}
