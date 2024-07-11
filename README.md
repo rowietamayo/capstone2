@@ -42,6 +42,8 @@
 - Update Product information (Admin only)
 - Archive Product(Admin Only)
 - Activate Product(Admin only)
+- Search Product by Name
+- Search Product by Price
 
 #### Features by Student-2
 
