@@ -34,7 +34,7 @@ module.exports.getAllProducts = (req, res) => {
   return Product.find({})
     .then((result) => {
       if (result.length > 0) {
-        return res.status(200).send(result)
+        return res.status(200).send({ products: result })
       } else {
         return res.status(404).send({ message: "No products found" })
       }
@@ -57,13 +57,13 @@ module.exports.getAllActive = (req, res) => {
 
 //Retrieve a single product
 module.exports.getProduct = (req, res) => {
-  Product.findById(req.params.id)
-    .then((product) => res.send(product))
+  Product.findById(req.params.productId)
+    .then((product) => res.json({ product: product }))
     .catch((err) => errorHandler(err, req, res))
 }
 
-//Update a Product information
 
+//Update a Product information
 module.exports.updateProduct = (req, res) => {
   let updatedProduct = {
     name: req.body.name,
