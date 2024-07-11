@@ -40,4 +40,11 @@ router.patch(
   productController.activateProduct
 )
 
+//search for products by their names
+router.post("/search-by-name", productController.searchProductByName)
+
+//search for products by price range
+router.post("/search-by-price", productController.searchProductByPrice)
+
+
 module.exports = router
