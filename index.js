@@ -5,6 +5,7 @@ const userRoutes = require("./routes/user.js")
 const productRoutes = require("./routes/product.js")
 const cartRoutes = require("./routes/cart.js")
 const orderRoutes = require("./routes/order.js")
+const port= 4001;
 
 require("dotenv").config()
 
@@ -34,8 +35,8 @@ app.use("/b1/cart", cartRoutes)
 app.use("/b1/orders", orderRoutes)
 
 if (require.main === module) {
-  app.listen(process.env.PORT || 4000, () =>
-    console.log(`API is now available in port ${process.env.PORT || 4000}`)
+  app.listen(process.env.PORT || port, () =>
+    console.log(`API is now available in port ${process.env.PORT || port}`)
   )
 }
 
