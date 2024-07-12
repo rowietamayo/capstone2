@@ -62,7 +62,6 @@ module.exports.getProduct = (req, res) => {
     .catch((err) => errorHandler(err, req, res))
 }
 
-
 //Update a Product information
 module.exports.updateProduct = (req, res) => {
   let updatedProduct = {
@@ -138,7 +137,6 @@ module.exports.activateProduct = (req, res) => {
     })
     .catch((error) => errorHandler(error, req, res))
 }
-
 
 //search for products by their names
 module.exports.searchProductByName = async (req, res) => {
