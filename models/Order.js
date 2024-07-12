@@ -1,4 +1,4 @@
-// const mongoose = require("mongoose")
+const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema({
   userID: {
@@ -33,4 +33,4 @@ const orderSchema = new mongoose.Schema({
   },
 })
 
-// module.exports = mongoose.model("Order", orderSchema)
+module.exports = mongoose.model("Order", orderSchema)

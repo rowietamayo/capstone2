@@ -4,6 +4,7 @@ const cors = require("cors")
 const userRoutes = require("./routes/user.js")
 const productRoutes = require("./routes/product.js")
 const cartRoutes = require("./routes/cart.js")
+const orderRoutes = require("./routes/order.js")
 
 require("dotenv").config()
 
@@ -30,6 +31,7 @@ mongoose.connection.once("open", () =>
 app.use("/users", userRoutes)
 app.use("/product", productRoutes)
 app.use("/cart", cartRoutes)
+app.use("/orders", orderRoutes)
 
 if (require.main === module) {
   app.listen(process.env.PORT || 4000, () =>
