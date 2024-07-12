@@ -1,5 +1,5 @@
 const express = require("express")
-const productController = require("../controllers/product")
+const productController = require("../controllers/product.js")
 const auth = require("../auth.js")
 const { verify, verifyAdmin } = auth
 const router = express.Router()
@@ -45,6 +45,5 @@ router.post("/search-by-name", productController.searchProductByName)
 
 //search for products by price range
 router.post("/search-by-price", productController.searchProductByPrice)
-
 
 module.exports = router
