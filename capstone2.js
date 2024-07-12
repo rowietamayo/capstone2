@@ -1,0 +1,9 @@
+{
+	"url":"",
+	"routesPrefix":{
+		"users":"/b1/users",
+		"products":"/b1/products",
+		"orders":"/b1/oorders",
+		"cart":"/b1/cart"
+	}
+}

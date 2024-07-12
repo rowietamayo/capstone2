@@ -28,10 +28,10 @@ mongoose.connection.once("open", () =>
   console.log("Now connected to MongoDB Atlas")
 )
 
-app.use("/users", userRoutes)
-app.use("/product", productRoutes)
-app.use("/cart", cartRoutes)
-app.use("/orders", orderRoutes)
+app.use("/b1/users", userRoutes)
+app.use("/b1/products", productRoutes)
+app.use("/b1/cart", cartRoutes)
+app.use("/b1/orders", orderRoutes)
 
 if (require.main === module) {
   app.listen(process.env.PORT || 4000, () =>
