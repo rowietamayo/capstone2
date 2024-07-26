@@ -5,7 +5,7 @@ const userRoutes = require("./routes/user.js")
 const productRoutes = require("./routes/product.js")
 const cartRoutes = require("./routes/cart.js")
 const orderRoutes = require("./routes/order.js")
-const port= 4001;
+const port = 4001
 
 require("dotenv").config()
 
@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 const corsOptions = {
-  origin: ["http://localhost:8000"],
+  origin: ["http://localhost:5173"],
   credentials: true,
   optionsSuccessStatus: 200,
 }

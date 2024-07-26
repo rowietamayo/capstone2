@@ -8,24 +8,26 @@ module.exports.addProduct = async (req, res) => {
     return res.status(401).send({ message: "Only admin can add products" })
   }
 
-  let newProduct = new Product({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-  })
-
   try {
     const existingProduct = await Product.findOne({ name: req.body.name })
     if (existingProduct) {
       return res.status(409).send({ message: "Product already exists" })
-    } else {
-      await newProduct.save()
-      return res.send({
-        product: newProduct,
-      })
     }
+
+    let newProduct = new Product({
+      url: req.body.url,
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+    })
+
+    await newProduct.save()
+    return res.send({
+      success: true,
+      product: newProduct,
+    })
   } catch (err) {
-    errorHandler(err, req, res)
+    res.status(500).send({ message: "Internal Server Error" })
   }
 }
 
@@ -65,6 +67,7 @@ module.exports.getProduct = (req, res) => {
 //Update a Product information
 module.exports.updateProduct = (req, res) => {
   let updatedProduct = {
+    url: req.body.url,
     name: req.body.name,
     description: req.body.description,
     price: req.body.price,
