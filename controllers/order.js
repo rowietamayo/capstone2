@@ -5,7 +5,7 @@ const { errorHandler } = require("../auth.js")
 
 module.exports.checkoutOrders = async (req, res) => {
   try {
-    const { userId } = req.body
+    const { userId } = req.user.id;
     const cart = await Cart.findOne({ userId }).populate("cartItems.productId")
     console.log(cart)
 
@@ -13,14 +13,12 @@ module.exports.checkoutOrders = async (req, res) => {
       return res.status(404).json({ error: "No items to Checkout" })
     }
 
-    // Create an order from the cart
     const order = new Order({
       userId: cart.userId,
       productsOrdered: cart.cartItems,
       totalPrice: cart.totalPrice,
     })
 
-    // Save the order
     await order.save()
 
     // Clear the cart
@@ -37,7 +35,7 @@ module.exports.checkoutOrders = async (req, res) => {
 
 module.exports.myOrders = async (req, res) => {
   try {
-    const { userId } = req.params
+    const { userId } = req.user.id
     const orders = await Order.find({ userId }).populate(
       "productsOrdered.productId"
     )

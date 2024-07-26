@@ -8,7 +8,7 @@ const router = express.Router()
 router.post("/checkout", verify, verifyNotAdmin, orderController.checkoutOrders)
 
 router.get(
-  "/my-orders/:userId",
+  "/my-orders/",
   verify,
   verifyNotAdmin,
   orderController.myOrders

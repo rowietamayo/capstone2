@@ -4,7 +4,8 @@ const { errorHandler } = require("../auth.js")
 
 module.exports.addToCart = async (req, res) => {
   try {
-    const { userId, productId, quantity } = req.body
+    const userId = req.user.id;
+    const { productId, quantity } = req.body
 
     // Validate product
     const product = await Product.findById(productId)
@@ -56,64 +57,68 @@ module.exports.addToCart = async (req, res) => {
 
 module.exports.updateCartQuantity = async (req, res) => {
   try {
-    const { userId, productId, quantity } = req.body
+    const { productId, quantity } = req.body;
+    const userId = req.user.id;
 
-    // Validate product
-    const product = await Product.findById(productId)
+    const product = await Product.findById(productId);
     if (!product) {
-      return res.status(404).json({ message: "Product not found" })
+      return res.status(404).json({ message: "Product not found" });
     }
 
-    let cart = await Cart.findOne({ userId })
+    let cart = await Cart.findOne({ userId });
     if (!cart) {
-      return res.status(404).json({ message: "Cart not found" })
+      return res.status(404).json({ message: "Cart not found" });
     }
 
     const itemIndex = cart.cartItems.findIndex(
       (item) => item.productId.toString() === productId
-    )
+    );
     if (itemIndex === -1) {
-      return res.status(404).json({ message: "Product not in cart" })
+      return res.status(404).json({ message: "Product not in cart" });
     }
 
-    const oldSubtotal = cart.cartItems[itemIndex].subtotal
-    const newSubtotal = product.price * quantity
+    const oldSubtotal = cart.cartItems[itemIndex].subtotal;
+    const newSubtotal = product.price * quantity;
 
-    cart.cartItems[itemIndex].quantity = quantity
-    cart.cartItems[itemIndex].subtotal = newSubtotal
+    cart.cartItems[itemIndex].quantity = quantity;
+    cart.cartItems[itemIndex].subtotal = newSubtotal;
 
-    cart.totalPrice = cart.totalPrice - oldSubtotal + newSubtotal
+    cart.totalPrice = cart.totalPrice - oldSubtotal + newSubtotal;
 
-    await cart.save()
-    res
-      .status(200)
-      .json({
-        message: "Item quantity updated successfully",
-        updatedCart: cart,
-      })
+    await cart.save();
+    res.status(200).json({
+      message: "Item quantity updated successfully",
+      updatedCart: cart,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: error.message });
   }
-}
+};
+
 
 module.exports.getCart = async (req, res) => {
   try {
-    const { userId } = req.params
+    const userId = req.user.id;
+    console.log("Fetching cart for userId:", userId);
+    const cart = await Cart.findOne({ userId }).populate("cartItems.productId", "name price");
 
-    const cart = await Cart.findOne({ userId }).populate("cartItems.productId")
     if (!cart) {
-      return res.status(404).json({ message: "Cart not found" })
+      console.log("Cart not found for userId:", userId);
+      return res.status(404).json({ message: "Cart not found" });
     }
 
-    res.status(200).json({ cart: cart })
+    console.log("Cart found:", cart);
+    res.status(200).json({ cart });
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
-}
+};
+
 
 module.exports.removeFromCart = async (req, res, next) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.user.id;
     const { productId } = req.params;
     
     let cart = await Cart.findOne({ userId });
@@ -145,7 +150,7 @@ module.exports.removeFromCart = async (req, res, next) => {
 
 module.exports.clearCart = async (req, res, next) => {
   try {
-    const { userId } = req.body; 
+    const { userId } = req.user.id; 
     let cart = await Cart.findOne({ userId });
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
