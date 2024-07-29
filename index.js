@@ -15,9 +15,9 @@ app.use(express.urlencoded({ extended: true }))
 
 const corsOptions = {
   origin: [
-    "capstone3-xi.vercel.app",
-    "https://capstone3-git-master-rowies-projects.vercel.app/",
-    "https://capstone3-git-master-rowies-projects.vercel.app/",
+    "capstone3-three-navy.vercel.app",
+    "capstone3-git-master-jeswels-projects.vercel.app",
+    "capstone3-budc27coh-jeswels-projects.vercel.app",
   ],
   credentials: true,
   optionsSuccessStatus: 200,
