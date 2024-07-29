@@ -128,7 +128,7 @@ module.exports.getCart = async (req, res) => {
 
 module.exports.removeFromCart = async (req, res, next) => {
   try {
-    const userId = req.user.id; // Fixed
+    const userId = req.user.id;
     const { productId } = req.params;
     
     console.log('User ID:', userId);
