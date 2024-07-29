@@ -22,9 +22,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-mongoose.connect(process.env.MONGODB_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to MongoDB Atlas"))
-  .catch(err => console.error("Failed to connect to MongoDB Atlas", err));
+mongoose.connect(process.env.MONGODB_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use("/b1/users", userRoutes);
 app.use("/b1/products", productRoutes);
