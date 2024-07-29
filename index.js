@@ -5,7 +5,7 @@ const userRoutes = require("./routes/user.js");
 const productRoutes = require("./routes/product.js");
 const cartRoutes = require("./routes/cart.js");
 const orderRoutes = require("./routes/order.js");
-const port = 4001;
+const port = 4000;
 
 require("dotenv").config();
 
