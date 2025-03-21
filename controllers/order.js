@@ -18,6 +18,7 @@ module.exports.checkoutOrders = async (req, res) => {
       productsOrdered: cart.cartItems,
       totalPrice: cart.totalPrice,
     })
+    console.log({ uuuuuuserId: order })
 
     await order.save()
 
@@ -62,6 +63,7 @@ module.exports.getAllOrders = async (req, res) => {
       "productsOrdered.productId userId"
     )
 
+    console.log({ uuuuuuserId: orders })
     res.status(200).json({ orders })
   } catch (error) {
     console.error("Error fetching all orders:", error)

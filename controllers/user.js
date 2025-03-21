@@ -6,30 +6,56 @@ const { errorHandler } = auth
 
 // User Registration
 module.exports.registerUser = (req, res) => {
-  if (!req.body.email.includes("@")) {
-    return res.status(400).send({ error: "Email invalid" })
-  } else if (req.body.mobileNo.length !== 11) {
-    return res.status(400).send({ error: "Mobile number invalid" })
-  } else if (req.body.password.length < 8) {
-    return res
-      .status(400)
-      .send({ error: "Password must be atleast 8 characters" })
-  } else {
-    let newUser = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      mobileNo: req.body.mobileNo,
-      password: bcrypt.hashSync(req.body.password, 10),
-    })
+  const errors = {}
 
-    return newUser
-      .save()
-      .then((result) =>
-        res.status(201).send({ message: "Registered successfully" })
-      )
-      .catch((error) => errorHandler(error, req, res))
+  // Validate first name
+  if (!req.body.firstName || req.body.firstName.trim() === "") {
+    errors.firstName = "First name is required"
   }
+
+  // Validate last name
+  if (!req.body.lastName || req.body.lastName.trim() === "") {
+    errors.lastName = "Last name is required"
+  }
+
+  // Validate email format
+  if (!req.body.email || !req.body.email.includes("@")) {
+    errors.email = "Email is invalid"
+  }
+
+  // Validate mobile number
+  if (!req.body.mobileNo || req.body.mobileNo.length !== 11) {
+    errors.mobileNo = "Mobile number must be 11 digits"
+  }
+
+  // Validate password length
+  if (!req.body.password || req.body.password.length < 8) {
+    errors.password = "Password must be at least 8 characters long"
+  }
+
+  // Confirm password
+  if (req.body.password !== req.body.verifyPassword) {
+    errors.verifyPassword = "Passwords do not match"
+  }
+
+  // If there are any errors, return them
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).send({ errors })
+  }
+
+  // If all validations pass, create a new user
+  const newUser = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    mobileNo: req.body.mobileNo,
+    password: bcrypt.hashSync(req.body.password, 10),
+  })
+
+  return newUser
+    .save()
+    .then(() => res.status(201).send({ message: "Registered successfully" }))
+    .catch((error) => errorHandler(error, req, res))
 }
 
 //User authentication
